@@ -18,25 +18,25 @@ import 'model/location_result.dart';
 
 class MapPicker extends StatefulWidget {
   const MapPicker(
-    this.apiKey, {
-    Key? key,
-    this.initialCenter = const LatLng(28.8993447, 76.6228793),
-    this.initialZoom = 40.0,
-    this.requiredGPS = true,
-    this.myLocationButtonEnabled = true,
-    this.layersButtonEnabled = true,
-    this.automaticallyAnimateToCurrentLocation = true,
-    this.mapStylePath,
-    this.appBarColor = Colors.blue,
-    this.searchBarBoxDecoration,
-    this.hintText,
-    this.resultCardConfirmIcon = const Icon(Icons.arrow_forward),
-    this.resultCardAlignment = Alignment.bottomCenter,
-    this.resultCardDecoration,
-    this.resultCardPadding = const EdgeInsets.all(16.0),
-    this.language = 'en',
-    this.desiredAccuracy = LocationAccuracy.bestForNavigation,
-  }) : super(key: key);
+      this.apiKey, {
+        Key? key,
+        this.initialCenter = const LatLng(28.8993447, 76.6228793),
+        this.initialZoom = 40.0,
+        this.requiredGPS = true,
+        this.myLocationButtonEnabled = true,
+        this.layersButtonEnabled = true,
+        this.automaticallyAnimateToCurrentLocation = true,
+        this.mapStylePath,
+        this.appBarColor = Colors.blue,
+        this.searchBarBoxDecoration,
+        this.hintText,
+        this.resultCardConfirmIcon = const Icon(Icons.keyboard_arrow_up_rounded),
+        this.resultCardAlignment = Alignment.bottomCenter,
+        this.resultCardDecoration,
+        this.resultCardPadding = const EdgeInsets.all(16.0),
+        this.language = 'en',
+        this.desiredAccuracy = LocationAccuracy.bestForNavigation,
+      }) : super(key: key);
 
   final String apiKey;
 
@@ -89,7 +89,7 @@ class MapPickerState extends State<MapPicker> {
 
   void _onToggleMapTypePressed() {
     final MapType nextType =
-        MapType.values[(_currentMapType.index + 1) % MapType.values.length];
+    MapType.values[(_currentMapType.index + 1) % MapType.values.length];
 
     setState(() => _currentMapType = nextType);
   }
@@ -221,135 +221,138 @@ class MapPickerState extends State<MapPicker> {
   Widget locationCard() {
     return Align(
       alignment: widget.resultCardAlignment,
-      child: Padding(
+      child:
+      Padding(
         padding: widget.resultCardPadding,
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          child: Consumer<LocationProvider>(
-              builder: (context, locationProvider, _) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Flexible(
-                    flex: 20,
-                    child: FutureLoadingBuilder<Map<String, String>>(
-                      future: getAddress(locationProvider.lastIdleLocation),
-                      mutable: true,
-                      loadingIndicator: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                      builder: (context, data) {
-                        _address = data["address"];
-                        _placeId = data["placeId"];
-                        _streetNumber = data["streetNumber"];
-                        _route = data["route"];
-                        _locality = data["locality"];
-                        _administrativeAreaLevel2 =
-                            data["administrativeAreaLevel2"];
-                        _administrativeAreaLevel1 =
-                            data["administrativeAreaLevel1"];
-                        _country = data["country"];
-                        _postalCode = data["postalCode"];
-                        return Text(
-                          _address ?? S.of(context).unnamedPlace,
-                          style: const TextStyle(fontSize: 18),
-                        );
-                      },
-                    ),
-                  ),
-                  const Spacer(),
-                  FloatingActionButton.small(
-                    onPressed: () {
-                      Navigator.of(context).pop({
-                        'location': LocationResult(
-                          latLng: locationProvider.lastIdleLocation,
-                          address: _address ?? "",
-                          placeId: _placeId ?? "",
-                          streetNumber: _streetNumber ?? "",
-                          route: _route ?? "",
-                          locality: _locality ?? "",
-                          administrativeAreaLevel2:
-                              _administrativeAreaLevel2 ?? "",
-                          administrativeAreaLevel1:
-                              _administrativeAreaLevel1 ?? "",
-                          country: _country ?? "",
-                          postalCode: _postalCode ?? "",
-                        )
-                      });
-                    },
-                    child: widget.resultCardConfirmIcon,
-                  ),
-                ],
-              ),
-            );
-          }),
-        ),
+        // child: Card(
+        //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        child: Consumer<LocationProvider>(
+            builder: (context, locationProvider, _) {
+              return
+                // Padding(
+                // padding: const EdgeInsets.all(16.0),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: <Widget>[
+                // Flexible(
+                //   flex: 20,
+                //   child: FutureLoadingBuilder<Map<String, String>>(
+                //     future: getAddress(locationProvider.lastIdleLocation),
+                //     mutable: true,
+                //     loadingIndicator: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: const <Widget>[
+                //         CircularProgressIndicator(),
+                //       ],
+                //     ),
+                //     builder: (context, data) {
+                //       _address = data["address"];
+                //       _placeId = data["placeId"];
+                //       _streetNumber = data["streetNumber"];
+                //       _route = data["route"];
+                //       _locality = data["locality"];
+                //       _administrativeAreaLevel2 =
+                //           data["administrativeAreaLevel2"];
+                //       _administrativeAreaLevel1 =
+                //           data["administrativeAreaLevel1"];
+                //       _country = data["country"];
+                //       _postalCode = data["postalCode"];
+                //       return Text(
+                //         _address ?? S.of(context).unnamedPlace,
+                //         style: const TextStyle(fontSize: 18),
+                //       );
+                //     },
+                //   ),
+                // ),
+                // const Spacer(),
+                FloatingActionButton.large(
+                  backgroundColor: Colors.black,
+                  onPressed: () {
+                    Navigator.of(context).pop({
+                      'location': LocationResult(
+                        latLng: locationProvider.lastIdleLocation,
+                        // address: _address ?? "",
+                        // placeId: _placeId ?? "",
+                        // streetNumber: _streetNumber ?? "",
+                        // route: _route ?? "",
+                        // locality: _locality ?? "",
+                        // administrativeAreaLevel2:
+                        //     _administrativeAreaLevel2 ?? "",
+                        // administrativeAreaLevel1:
+                        //     _administrativeAreaLevel1 ?? "",
+                        // country: _country ?? "",
+                        // postalCode: _postalCode ?? "",
+                      )
+                    });
+                  },
+                  child: widget.resultCardConfirmIcon,
+                );
+              //     ],
+              //   ),
+              // );
+            }),
       ),
+      // ),
     );
   }
 
-  Future<Map<String, String>> getAddress(LatLng location) async {
-    try {
-      final endpoint =
-          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}'
-          '&key=${widget.apiKey}&language=${widget.language}';
-
-      final response = await http.get(Uri.parse(endpoint));
-      logger.i(endpoint);
-      logger.v(response.body);
-      final json = jsonDecode(response.body);
-
-      List<dynamic> addressComponents =
-          json['results'][0]['address_components'];
-
-      String? streetNumber;
-      String? route;
-      String? locality;
-      String? administrativeAreaLevel2;
-      String? administrativeAreaLevel1;
-      String? country;
-      String? postalCode;
-      if (addressComponents.isNotEmpty) {
-        streetNumber = addressComponents.firstWhereOrNull(
-            (entry) => entry['types'].contains('street_number'))?['long_name'];
-        route = addressComponents.firstWhereOrNull(
-            (entry) => entry['types'].contains('route'))?['long_name'];
-        locality = addressComponents.firstWhereOrNull(
-            (entry) => entry['types'].contains('locality'))?['long_name'];
-        administrativeAreaLevel2 = addressComponents.firstWhereOrNull((entry) =>
-            entry['types']
-                .contains('administrative_area_level_2'))?['long_name'];
-        administrativeAreaLevel1 = addressComponents.firstWhereOrNull((entry) =>
-            entry['types']
-                .contains('administrative_area_level_1'))?['long_name'];
-        country = addressComponents.firstWhereOrNull(
-            (entry) => entry['types'].contains('country'))?['long_name'];
-        postalCode = addressComponents.firstWhereOrNull(
-            (entry) => entry['types'].contains('postal_code'))?['long_name'];
-      }
-
-      return {
-        "placeId": json['results'][0]['place_id'],
-        "address": json['results'][0]['formatted_address'],
-        "streetNumber": streetNumber ?? "",
-        "route": route ?? "",
-        "locality": locality ?? "",
-        "administrativeAreaLevel2": administrativeAreaLevel2 ?? "",
-        "administrativeAreaLevel1": administrativeAreaLevel1 ?? "",
-        "country": country ?? "",
-        "postalCode": postalCode ?? "",
-      };
-    } catch (e) {
-      logger.e(e);
-    }
-
-    return {"placeId": "place id not found", "address": "address not found"};
-  }
+  // Future<Map<String, String>> getAddress(LatLng location) async {
+  //   try {
+  //     final endpoint =
+  //         'https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}'
+  //         '&key=${widget.apiKey}&language=${widget.language}';
+  //
+  //     final response = await http.get(Uri.parse(endpoint));
+  //     logger.i(endpoint);
+  //     logger.v(response.body);
+  //     final json = jsonDecode(response.body);
+  //
+  //     List<dynamic> addressComponents =
+  //         json['results'][0]['address_components'];
+  //
+  //     String? streetNumber;
+  //     String? route;
+  //     String? locality;
+  //     String? administrativeAreaLevel2;
+  //     String? administrativeAreaLevel1;
+  //     String? country;
+  //     String? postalCode;
+  //     if (addressComponents.isNotEmpty) {
+  //       streetNumber = addressComponents.firstWhereOrNull(
+  //           (entry) => entry['types'].contains('street_number'))?['long_name'];
+  //       route = addressComponents.firstWhereOrNull(
+  //           (entry) => entry['types'].contains('route'))?['long_name'];
+  //       locality = addressComponents.firstWhereOrNull(
+  //           (entry) => entry['types'].contains('locality'))?['long_name'];
+  //       administrativeAreaLevel2 = addressComponents.firstWhereOrNull((entry) =>
+  //           entry['types']
+  //               .contains('administrative_area_level_2'))?['long_name'];
+  //       administrativeAreaLevel1 = addressComponents.firstWhereOrNull((entry) =>
+  //           entry['types']
+  //               .contains('administrative_area_level_1'))?['long_name'];
+  //       country = addressComponents.firstWhereOrNull(
+  //           (entry) => entry['types'].contains('country'))?['long_name'];
+  //       postalCode = addressComponents.firstWhereOrNull(
+  //           (entry) => entry['types'].contains('postal_code'))?['long_name'];
+  //     }
+  //
+  //     return {
+  //       "placeId": json['results'][0]['place_id'],
+  //       "address": json['results'][0]['formatted_address'],
+  //       "streetNumber": streetNumber ?? "",
+  //       "route": route ?? "",
+  //       "locality": locality ?? "",
+  //       "administrativeAreaLevel2": administrativeAreaLevel2 ?? "",
+  //       "administrativeAreaLevel1": administrativeAreaLevel1 ?? "",
+  //       "country": country ?? "",
+  //       "postalCode": postalCode ?? "",
+  //     };
+  //   } catch (e) {
+  //     logger.e(e);
+  //   }
+  //
+  //   return {"placeId": "place id not found", "address": "address not found"};
+  // }
 
   Widget pin() {
     return IgnorePointer(
@@ -500,6 +503,7 @@ class _MapFabs extends StatelessWidget {
             ),
           if (myLocationButtonEnabled)
             FloatingActionButton(
+              backgroundColor: Colors.black,
               onPressed: onMyLocationPressed,
               materialTapTargetSize: MaterialTapTargetSize.padded,
               mini: true,
